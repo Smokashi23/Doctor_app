@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-     skip_before_action :authorized, only: [:create, :index]
+    skip_before_action :authorized, only: [:create, :index]
     rescue_from ActiveRecord::RecordInvalid, with: :handle_invalid_record
    
     def index
@@ -22,19 +22,11 @@ class UsersController < ApplicationController
         render json: user
       end
     
-      def destroy
+    def destroy
         user = User.find(params[:id])
         user.destroy
         head :no_content
-      end
-
-    def me 
-        render json: current_user, status: :ok
     end
-
-   
-
-    private
 
     def user_params 
         params.require(:user).permit(:email, :password, :first_name, :last_name, :age, :specialization)
