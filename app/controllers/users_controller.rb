@@ -33,7 +33,7 @@ class UsersController < ApplicationController
     end
 
     def handle_invalid_record(e)
-            render json: { errors: e.record.errors.full_messages }, status: :unprocessable_entity
+        render json: { errors: e.record.errors.full_messages }, status: :unprocessable_entity
     end
  
 end
