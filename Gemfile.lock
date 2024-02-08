@@ -133,6 +133,7 @@ GEM
     nio4r (2.7.0)
     nokogiri (1.16.2-x86_64-linux)
       racc (~> 1.4)
+    pg (1.5.4)
     psych (5.1.2)
       stringio
     puma (6.4.2)
@@ -181,7 +182,6 @@ GEM
     reline (0.4.2)
       io-console (~> 0.5)
     ruby2_keywords (0.0.5)
-    sqlite3 (1.7.2-x86_64-linux)
     stringio (3.1.0)
     thor (1.3.0)
     timeout (0.4.1)
@@ -202,9 +202,9 @@ DEPENDENCIES
   bootsnap
   debug
   jwt
+  pg (~> 1.5)
   puma (>= 5.0)
   rails (~> 7.1.3)
-  sqlite3 (~> 1.4)
   tzinfo-data
 
 RUBY VERSION
