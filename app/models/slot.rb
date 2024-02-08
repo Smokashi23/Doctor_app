@@ -1,4 +1,4 @@
 class Slot < ApplicationRecord
   belongs_to :user
-  has_one :appointment
+  has_one :appt
 end

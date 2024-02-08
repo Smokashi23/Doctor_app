@@ -15,8 +15,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_07_131735) do
   enable_extension "plpgsql"
 
   create_table "appts", force: :cascade do |t|
-    t.bigint "user_id"
-    t.bigint "slot_id"
+    t.bigint "user_id", null: false
+    t.bigint "slot_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["slot_id"], name: "index_appts_on_slot_id"
@@ -24,13 +24,13 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_07_131735) do
   end
 
   create_table "roles", force: :cascade do |t|
-    t.string "role"
+    t.string "role_name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "slots", force: :cascade do |t|
-    t.bigint "user_id"
+    t.bigint "user_id", null: false
     t.date "available_days"
     t.time "available_time"
     t.datetime "created_at", null: false
