@@ -4,8 +4,6 @@ class CreateAppts < ActiveRecord::Migration[7.1]
       t.references :user, foreign_key: true, null:false
       t.references :slot, foreign_key: true, null:false
 
-    
-
       t.timestamps
     end
   end

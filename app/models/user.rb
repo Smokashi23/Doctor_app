@@ -1,16 +1,20 @@
 class User < ApplicationRecord
   belongs_to :role
-  validates :email, presence: true, uniqueness: { message: " already exist" }, format: { with: /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i , message: "Invalid"}
+  has_many :appts, dependent: :destroy
+  has_many :slots, dependent: :destroy
+  validates :email, presence: true, uniqueness: { message: " already exist" }, format: { with: /\A[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]+\z/i , message: "Invalid"}
   has_secure_password
-
   validates :password, presence: true, length: { minimum: 8 }
-  validate :standards
+ 
+  def admin?
+    role.role_name == ROLES[:admin]
+  end
 
-  private
+  def doctor?
+    role.role_name == ROLES[:doctor]
+  end
 
-  def standards
-    unless password.match?(/\A(?=.*\d)(?=.*[a-z])(?=.*[A-Z])/)
-      errors.add(:password, "Must include at least one digit, one lowercase, and one uppercase letter")
-    end
+  def patient?
+    role.role_name == ROLES[:patient]
   end
 end

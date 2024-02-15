@@ -9,10 +9,20 @@ Rails.application.routes.draw do
   post "/login", to: "auths#login"
   put "/update", to: "user#update"
   delete "/delete", to: "user#destroy"
+
+  get "/slots", to: "slots#index"
+  post "/slots", to: "slots#create" 
+
+  resources :slots do
+    patch 'booked', on: :member
+  end
+  
   resources :auths
   resources :users
-  #resources :users, except: [:new, :edit]
+  resources :slots 
+  resources :appts
 
+  #resources :users, except: [:new, :edit]
 
   # Defines the root path route ("/")
   # root "posts#index"

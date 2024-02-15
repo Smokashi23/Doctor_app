@@ -37,6 +37,15 @@ gem "bootsnap", require: false
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri windows ]
+  gem 'factory_bot_rails'
+  gem 'rspec-rails'
+  gem 'faker'
+  gem 'shoulda-matchers'
+  gem 'validates'
+  gem 'simplecov'
+  gem 'byebug'
+ 
+
 end
 
 group :development do
@@ -49,3 +58,4 @@ gem 'jwt'
 gem 'active_model_serializers'
 
 gem "pg", "~> 1.5"
+gem 'cancancan'

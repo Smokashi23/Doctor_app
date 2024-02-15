@@ -1,4 +1,11 @@
 class Role < ApplicationRecord
   has_many :users
-  validates :role, inclusion: { in: %w(doctor patient), message: "should be 'doctor' or 'patient'" 
+  validates :role_name, presence: true
+  ROLES = {
+  admin: 'admin',
+  doctor: 'doctor',
+  patient: 'patient'
+}.freeze
 end
+
+
