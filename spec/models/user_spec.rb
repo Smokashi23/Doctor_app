@@ -6,7 +6,8 @@ RSpec.describe User, type: :model do
     {
       email: Faker::Internet.email,
       password: Faker::Internet.password(min_length: 8),
-      role_id: roles.sample.id 
+      role_id: roles.sample.id,
+      age: Faker::Number.between(from: 1, to: 120)
     }
   end
 

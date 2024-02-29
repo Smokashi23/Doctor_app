@@ -7,7 +7,7 @@ RSpec.describe SlotsController, type: :controller do
 
   describe "POST #create" do
     it "creates new slot" do
-      post :create, params: { user_id: user.id, available_days: "14-02-2024", available_time: "13:00" }
+      post :create, params: { user_id: user.id, available_days: Date.today, available_time: "13:00" }
       debugger
       expect(response).to have_http_status(:created)
     end
