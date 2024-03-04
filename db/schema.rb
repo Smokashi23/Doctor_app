@@ -10,22 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_13_141555) do
+ActiveRecord::Schema[7.1].define(version: 2024_03_04_074814) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "appts", force: :cascade do |t|
+  create_table "appointments", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "slot_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "status", default: "confirmed"
-    t.index ["slot_id"], name: "index_appts_on_slot_id"
-    t.index ["user_id"], name: "index_appts_on_user_id"
+    t.index ["slot_id"], name: "index_appointments_on_slot_id"
+    t.index ["user_id"], name: "index_appointments_on_user_id"
   end
 
   create_table "roles", force: :cascade do |t|
-    t.string "role_name"
+    t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -53,8 +53,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_13_141555) do
     t.index ["role_id"], name: "index_users_on_role_id"
   end
 
-  add_foreign_key "appts", "slots"
-  add_foreign_key "appts", "users"
+  add_foreign_key "appointments", "slots"
+  add_foreign_key "appointments", "users"
   add_foreign_key "slots", "users"
   add_foreign_key "users", "roles"
 end

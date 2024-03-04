@@ -1,5 +1,5 @@
 require 'rails_helper'
-RSpec.describe Appt, type: :model do
+RSpec.describe Appointment, type: :model do
   let(:user) { create(:user) }
   let(:slot) { create(:slot, user: user) }
 

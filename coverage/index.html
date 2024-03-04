@@ -833,7 +833,7 @@
 
             
 
-            <code class="ruby">      @appts = Appt.includes(:slot, :user).map do |appointment|</code>
+            <code class="ruby">      @appts = Appointment.includes(:slot, :user).map do |appointment|</code>
           </li>
         </div>
       
@@ -943,7 +943,7 @@
 
             
 
-            <code class="ruby">      @appts = Appt.includes(:slot, :user).where(slots: { user_id: @user.id }).map do |appointment|</code>
+            <code class="ruby">      @appts = Appointment.includes(:slot, :user).where(slots: { user_id: @user.id }).map do |appointment|</code>
           </li>
         </div>
       
@@ -1130,7 +1130,7 @@
 
             
 
-            <code class="ruby">    @appt = Appt.find(params[:id])</code>
+            <code class="ruby">    @appt = Appointment.find(params[:id])</code>
           </li>
         </div>
       
@@ -1196,7 +1196,7 @@
 
             
 
-            <code class="ruby">      @appointment = Appt.find(params[:id])</code>
+            <code class="ruby">      @appointment = Appointment.find(params[:id])</code>
           </li>
         </div>
       
@@ -3192,7 +3192,7 @@
 
             
 
-            <code class="ruby">      can :index, Appt</code>
+            <code class="ruby">      can :index, Appointment</code>
           </li>
         </div>
       
@@ -3203,7 +3203,7 @@
 
             
 
-            <code class="ruby">      can :show, Appt</code>
+            <code class="ruby">      can :show, Appointment</code>
           </li>
         </div>
       
@@ -3214,7 +3214,7 @@
 
             
 
-            <code class="ruby">      can :update, Appt</code>
+            <code class="ruby">      can :update, Appointment</code>
           </li>
         </div>
       
@@ -3258,7 +3258,7 @@
 
             
 
-            <code class="ruby">      cannot :index, Appt</code>
+            <code class="ruby">      cannot :index, Appointment</code>
           </li>
         </div>
       
@@ -3485,7 +3485,7 @@
 
             
 
-            <code class="ruby">class Appt &lt; ApplicationRecord</code>
+            <code class="ruby">class Appointment &lt; ApplicationRecord</code>
           </li>
         </div>
       
@@ -5979,7 +5979,7 @@
 
             
 
-            <code class="ruby">RSpec.describe Appt, type: :model do</code>
+            <code class="ruby">RSpec.describe Appointment, type: :model do</code>
           </li>
         </div>
       

@@ -4,17 +4,27 @@ class UsersController < ApplicationController
   rescue_from ActiveRecord::RecordInvalid, with: :handle_invalid_record
   
   def index
-    users = User.all
-    render json: users
+    begin
+      users = User.all
+      render json: users
+    rescue => e
+      render json: { error: "Cannot fetch user: #{e.message}" }, status: :unprocessable_entity
+    end
   end
 
   def create 
+    begin
       user = User.create!(user_params)
       @token = encode_token(user_id: user.id)
       render json: {
-          user: UserSerializer.new(user), 
-          token: @token
+        user: UserSerializer.new(user), 
+        token: @token
       }, status: :created
+    rescue ActiveRecord::RecordInvalid => e
+      render json: { error: "Validation failed: #{e.message}" }, status: :unprocessable_entity
+    rescue => e
+      render json: { error: "An error occurred while creating the user: #{e.message}" }, status: :unprocessable_entity
+    end
   end
 
   def update
@@ -44,9 +54,8 @@ class UsersController < ApplicationController
   end
 
   def handle_invalid_record(e)
-      render json: { errors: e.record.errors.full_messages }, status: :unprocessable_entity
+    render json: { errors: e.record.errors.full_messages }, status: :unprocessable_entity
   end
-
 end
 
 

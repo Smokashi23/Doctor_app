@@ -19,9 +19,9 @@ class SlotsController < ApplicationController
   def create
     available_time = Time.zone.parse(slot_params[:available_time])
     if available_time.hour < 10 || available_time.hour >= 18
-      render json: { error: "Slots must start between 10:00 and 17:00" }, status: :unprocessable_entity
+      render json: { error: I18n.t('slots.errors.invalid_time_range') }, status: :unprocessable_entity
       return
-    end 
+    end
     @slot = Slot.new(slot_params.merge(available_time: available_time))
     if @slot.save
       render json: @slot, status: :created
@@ -33,11 +33,11 @@ class SlotsController < ApplicationController
   def booked
     @slot = Slot.find(params[:id]) 
     if @slot.booked
-      render json: { error: "This slot is already booked" }, status: :unprocessable_entity
+      render json: { error: I18n.t('slots.errors.slot_already_booked')}, status: :unprocessable_entity
     else
       @slot.update(booked: true)
       appointment = current_user.appts.create(slot_id: @slot.id, status: "booked")
-      render json: { message: "Appointment booked successfully", appointment: appointment }, status: :ok
+      render json: { message: I18n.t('slots.sucess.booked'), appointment: appointment }, status: :ok
     end
   end
 
@@ -78,7 +78,6 @@ class SlotsController < ApplicationController
     render json: { error: 'Slot not found' }, status: :not_found
   end
   
-  
   private
     def set_slot
       @slot = Slot.find(params[:id])
@@ -87,4 +86,9 @@ class SlotsController < ApplicationController
     def slot_params
       params.require(:slot).permit(:user_id, :available_days, :available_time)
     end
+
+    # def user_params 
+    #   params.require(:user).permit(:email, :password, :first_name, :last_name, :age, :specialization,:role_id)
+    # end
+
 end

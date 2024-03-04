@@ -20,7 +20,7 @@ Rails.application.routes.draw do
   resources :auths
   resources :users
   resources :slots 
-  resources :appts
+  resources :appointments
 
   #resources :users, except: [:new, :edit]
 

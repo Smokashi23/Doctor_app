@@ -11,13 +11,13 @@ class Ability
       can :update, Slot
       can :destroy, Slot
       can :show, Slot
-      can :index, Appt
-      can :show, Appt
-      can :update, Appt
+      can :index, Appointment
+      can :show, Appointment
+      can :update, Appointment
     elsif user.patient?
       can :booked, Slot
       cannot :create, Slot
-      cannot :index, Appt
+      cannot :index, Appointment
       can :index, Slot
       can :show, Slot
     end

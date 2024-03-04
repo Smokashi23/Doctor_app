@@ -75,7 +75,7 @@ RSpec.describe SlotsController, type: :controller do
         slot.update(booked: true)
         post :booked, params: { id: slot.id }
         expect(response).to have_http_status(:unprocessable_entity)
-        expect(JSON.parse(response.body)["error"]).to eq("This slot is already booked")
+        expect(JSON.parse(response.body)["error"]).to eq(I18n.t('errors.slot_already_booked'))
       end
     end
   end
