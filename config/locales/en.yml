@@ -29,3 +29,27 @@
 
 en:
   hello: "Hello world"
+
+  slots: 
+    success: 
+      booked: "Appointment booked successfully"
+    errors:
+      invalid_time_range: "Slots must start between 10:00 and 17:00"
+      slot_already_booked: "This slot is already booked"
+
+  user:
+    not_found: "User not found"
+    please_log_in: "Please log in"
+    already_exists: "User already exists"
+    regrex_invalid: "Invalid"
+
+  messages:
+    no_appointment_found: "No appointment found"
+    appointment_cancelled: "Apologies, appointment has been cancelled"
+    no_appointment_booked: "No one booked an appointment for this slot"
+
+  login:
+    incorrect_password: "Incorrect password"
+
+  record_not_found:
+    user_not_found: "User doesn't exist"
