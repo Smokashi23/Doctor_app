@@ -42,7 +42,7 @@ def update
   begin
     @appointment = Appointment.find(params[:id])
     @status = @appointment.status
-    if @status == "confirmed"  
+    if @status == "booked"  
       @appointment.update(status: params[:status])
       render json: { message: I18n.t('messages.appointment_cancelled') }, status: :ok
     else

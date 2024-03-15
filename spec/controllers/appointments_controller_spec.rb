@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe ApptsController, type: :controller do
+RSpec.describe AppointmentsController, type: :controller do
   let!(:user) { create(:user) }
   before(:each) do
     add_request_headers(user)

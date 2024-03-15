@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :appt do
+  factory :appointment do
     slot
     user
     trait :admin do

@@ -19,17 +19,17 @@ class ApplicationController < ActionController::API
   
   def current_user
     if decoded_token
-        user_id = decoded_token[0]['user_id']
-        @user = User.find_by(id: user_id)
+      user_id = decoded_token[0]['user_id']
+      @user = User.find_by(id: user_id)
     end
+  end
+
+  def logged_in?
+    !!current_user
   end
   
   def authorized
-    if @user.nil?
-      render json: { message: I18n.t('user.not_found') }, status: :not_found
-    elsif current_user.nil?
-      render json: { message: I18n.t('user.please_log_in') }, status: :unauthorized
-    end
+    render json:{message:"not found"}, status: :unauthorized unless logged_in?
   end
   
   rescue_from CanCan::AccessDenied do |exception|

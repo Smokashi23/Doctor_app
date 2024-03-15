@@ -14,7 +14,8 @@ Rails.application.routes.draw do
   post "/slots", to: "slots#create" 
 
   resources :slots do
-    patch 'booked', on: :member
+    patch 'book', to: "slots#book"
+    
   end
   
   resources :auths

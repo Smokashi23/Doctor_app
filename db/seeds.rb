@@ -12,7 +12,3 @@ roles = ["admin", "doctor", "patient"]
 roles.each do |role_name|
   Role.create(role_name: role_name)
 end
-
-
-
-
