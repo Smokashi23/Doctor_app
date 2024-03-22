@@ -14,7 +14,22 @@ class UsersController < ApplicationController
 
   def create 
     begin
-      user = User.create!(user_params)
+      user = User.create!(user_params.merge(role_id:Role.where(name: Role::ROLES[:patient]).first.id ))
+      @token = encode_token(user_id: user.id)
+      render json: {
+        user: UserSerializer.new(user), 
+        token: @token
+      }, status: :created
+    rescue ActiveRecord::RecordInvalid => e
+      render json: { error: "Validation failed: #{e.message}" }, status: :unprocessable_entity
+    rescue => e
+      render json: { error: "An error occurred while creating the user: #{e.message}" }, status: :unprocessable_entity
+    end
+  end
+
+  def create_doctor 
+    begin
+      user = User.create!(user_params.merge(role_id:Role.where(name: Role::ROLES[:doctor]).first.id ))
       @token = encode_token(user_id: user.id)
       render json: {
         user: UserSerializer.new(user), 
@@ -50,7 +65,7 @@ class UsersController < ApplicationController
   end
 
   def user_params 
-      params.require(:user).permit(:email, :password, :first_name, :last_name, :age, :specialization,:role_id)
+      params.require(:user).permit(:email, :password, :first_name, :last_name, :age, :specialization)
   end
 
   def handle_invalid_record(e)

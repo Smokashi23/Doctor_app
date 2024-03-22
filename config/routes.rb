@@ -14,12 +14,15 @@ Rails.application.routes.draw do
   post "/slots", to: "slots#create" 
 
   resources :slots do
-    patch 'book', to: "slots#book"
-    
+    patch 'book', to: "slots#book"  
   end
-  
+
   resources :auths
-  resources :users
+  resources :users do 
+     collection do
+     post 'create_doctor', to:"users#create_doctor"
+    end
+  end
   resources :slots 
   resources :appointments
 

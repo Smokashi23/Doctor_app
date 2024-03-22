@@ -6,6 +6,7 @@ class Ability
     can :update, User
     if user.admin?
       can :manage, :all
+      can :create_doctor, User
     elsif user.doctor?
       can :create, Slot
       can :update, Slot
@@ -14,12 +15,14 @@ class Ability
       can :index, Appointment
       can :show, Appointment
       can :update, Appointment
+      cannot :create_doctor, User
     elsif user.patient?
       can :booked, Slot
       cannot :create, Slot
       cannot :index, Appointment
       can :index, Slot
       can :show, Slot
+      cannot :create_doctor, User
     end
   end
 end
