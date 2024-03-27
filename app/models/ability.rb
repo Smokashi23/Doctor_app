@@ -4,6 +4,7 @@ class Ability
   def initialize(user) 
     can :login, User
     can :update, User
+    can :show, User
     if user.admin?
       can :manage, :all
       can :create_doctor, User
@@ -17,7 +18,7 @@ class Ability
       can :update, Appointment
       cannot :create_doctor, User
     elsif user.patient?
-      can :booked, Slot
+      can :book, Slot
       cannot :create, Slot
       cannot :index, Appointment
       can :index, Slot
