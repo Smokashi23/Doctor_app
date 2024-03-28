@@ -1,9 +1,10 @@
 class AppointmentsController < ApplicationController
   load_and_authorize_resource
+  
   def index
     @user = current_user
     if @user.admin?
-      @appts = Appointment.includes(:slot, :user).map do |appointment|
+      @appts = Appointment.includes(:slot, :user).where.not(status: 'cancelled').map do |appointment|
         {
           "id": appointment.id,
           "slot_id": appointment.slot.id,
@@ -13,7 +14,7 @@ class AppointmentsController < ApplicationController
         }
       end
     elsif @user.doctor?
-      @appts = Appointment.includes(:slot, :user).where(slots: { user_id: @user.id }).map do |appointment|
+      @appts = Appointment.includes(:slot, :user).where(slots: { user_id: @user.id }, status: 'booked').map do |appointment|
         {
           "id": appointment.id,
           "slot_id": appointment.slot.id,
@@ -27,34 +28,33 @@ class AppointmentsController < ApplicationController
     else
       render json: @appts
     end
- end
+  end
   
- def show
-  @appt = Appointment.find_by(id: params[:id]) 
-  if @appt
-    render json: @appt
-  else
-    render json: { message: I18n.t('messages.no_appointment_found') }, status: :not_found
-  end
-end
-
-def update
-  begin
-    @appointment = Appointment.find(params[:id])
-    @status = @appointment.status 
-    if @status == "booked"  
-      @appointment.update(status: params[:status])
-      render json: { message: I18n.t('messages.appointment_cancelled') }, status: :ok
+  def show
+    @appt = Appointment.find_by(id: params[:id]) 
+    if @appt
+      render json: @appt
     else
-      render json: { message: I18n.t('messages.no_appointment_booked') }, status: :ok
+      render json: { message: I18n.t('messages.no_appointment_found') }, status: :not_found
     end
-  rescue ActiveRecord::RecordNotFound
-    render json: { message: I18n.t('messages.no_appointment_found') }, status: :not_found
   end
-end
+
+  def update
+    @appointment = Appointment.find_by(id: params[:id])
+    if @appointment
+      if @appointment.status == 'booked' && @appointment.update(status: 'cancelled')
+        render json: { message: I18n.t('messages.appointment_cancelled') }, status: :ok
+      else
+        render json: { message: I18n.t('messages.no_appointment_booked') }, status: :unprocessable_entity
+      end
+    else
+      render json: { message: I18n.t('messages.no_appointment_found') }, status: :not_found
+    end
+  end
+  
+  private
   
   def appt_params
-    params[:id]
+    params.require(:appointment).permit(:status)
   end
-  
 end
