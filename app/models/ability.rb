@@ -24,6 +24,7 @@ class Ability
       can :index, Slot
       can :show, Slot
       cannot :create_doctor, User
+      can :my_slots, Slot
     end
   end
 end

@@ -11,8 +11,9 @@ Rails.application.routes.draw do
   delete "/delete", to: "user#destroy"
 
   get "/slots", to: "slots#index"
-  post "/slots", to: "slots#create" 
-
+  post "/slots", to: "slots#create"
+  # get "/slots/:id" to: "slots#"
+  get "/my_slots", to: "slots#my_slots"
   resources :slots do
     patch 'book', to: "slots#book"  
   end

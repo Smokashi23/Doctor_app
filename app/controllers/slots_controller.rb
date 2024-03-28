@@ -39,6 +39,12 @@ class SlotsController < ApplicationController
     end
   end
 
+  def my_slots
+    @booked_slots = current_user.appointments.includes(:slot).where(status: "booked").map(&:slot)
+    render json: @booked_slots.map { |slot| format_slot(slot) }, status: :ok
+  end
+  
+
   def show
     @slot = Slot.find_by(id: params[:id])
     if @slot
